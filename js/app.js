@@ -37,6 +37,7 @@ formulario .addEventListener( 'submit', function( e ) {
         // Insertar el gasto al DOM
         ui .imprimirMensaje( 'correcto', 'Correcto! Gasto agregado' );
         ui .agregarGastoListado( gasto, cantidad );
+        ui .presupuestoRestante( cantidad );
     }
 });
 
@@ -47,7 +48,7 @@ class Presupuesto {
         this .restante = Number( cantidad );
     }
     /* Prototypes (o Método) */
-    restante( cantidad = 0 ) {
+    presupuestoRestante( cantidad = 0 ) {
         return this .restante -= Number( cantidad );
     }
 }
@@ -86,11 +87,20 @@ class Interfaz {
               li = document .createElement( 'li' );                         // Crea un elemento 'li'
 
         li .className = 'list-group-item d-flex justify-content-between align-items-center';    // Agrega clases (Bootstrap) al elemento
-        // Inserta los datos del Gasto
+        // Inserta los datos del Gasto en el elemento
         li .innerHTML = `
             ${ gasto }
             <span class="badge badge-primary badge-pill">$ ${ cantidad }</span>
         `;
         gastoListado .appendChild( li );    // Inserta el elemento en el DOM
+    }
+    presupuestoRestante( cantidad ) {
+        const restante = document .querySelector( 'span#restante' ),                 // Obtiene el elemento que vamos a actualizar
+              presupuestoRestante = presupuesto .presupuestoRestante( cantidad );   // Calcula el presupuesto restante
+
+        restante .innerHTML = `${ presupuestoRestante }`;   // Actualiza los datos del elemento 'restante' en el DOM
+
+        console .log( 'Presupuesto restante: ', presupuestoRestante );
+
     }
 }
