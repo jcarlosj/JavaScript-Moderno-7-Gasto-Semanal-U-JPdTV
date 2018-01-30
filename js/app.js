@@ -34,7 +34,9 @@ formulario .addEventListener( 'submit', function( e ) {
         ui .imprimirMensaje( 'error', 'Uno o más campos están vacíos' );
     }
     else {
-        console .log( 'Se agrego el gasto!' );
+        // Insertar el gasto al DOM
+        ui .imprimirMensaje( 'correcto', 'Correcto! Gasto agregado' );
+        ui .agregarGastoListado( gasto, cantidad );
     }
 });
 
@@ -78,5 +80,17 @@ class Interfaz {
             document .querySelector( '.primario .alert' ) .remove();   // Elimina el el elemento 'div' en el DOM (Alerta ERROR)
             formulario .reset();                                        // Limpia los campos del formulario
         }, 3000 );
+    }
+    agregarGastoListado( gasto, cantidad ) {
+        const gastoListado = document .querySelector( '#gastos ul' ),       // Obtiene el elemento 'ul' donde se imprimiran los gastos
+              li = document .createElement( 'li' );                         // Crea un elemento 'li'
+
+        li .className = 'list-group-item d-flex justify-content-between align-items-center';    // Agrega clases (Bootstrap) al elemento
+        // Inserta los datos del Gasto
+        li .innerHTML = `
+            ${ gasto }
+            <span class="badge badge-primary badge-pill">$ ${ cantidad }</span>
+        `;
+        gastoListado .appendChild( li );    // Inserta el elemento en el DOM
     }
 }
