@@ -10,20 +10,33 @@ document .addEventListener( 'DOMContentLoaded', function() {
         window .location .reload();     // Recarga la ventana actual
     }
     else {
-        // Instancia del Presupuesto
-        presupuesto = new Presupuesto( presupuestoUsuario );
-        console .log( 'Presupuesto', presupuesto );
+        presupuesto = new Presupuesto( presupuestoUsuario );    // Instancia del Presupuesto
+        const ui = new Interfaz();                              // Instancia de Interfaz
+
+        ui .insertarPresupuesto( presupuesto .cantidad );
     }
 });
 
 /* Clase Presupuesto */
 class Presupuesto {
-    constructor( presupuesto ) {
-        this .presupuesto = Number( presupuesto );
-        this .restante = Number( presupuesto );
+    constructor( cantidad ) {
+        this .cantidad = Number( cantidad );
+        this .restante = Number( cantidad );
     }
     /* Prototypes (o Método) */
     restante( cantidad = 0 ) {
         return this .restante -= Number( cantidad );
+    }
+}
+/* Clase Interfaz */
+class Interfaz {
+    insertarPresupuesto( cantidad ) {
+        const presupuestoTotal = document .querySelector( 'span#total' ),
+              restanteTotal    = document .querySelector( 'span#restante' );
+
+        // Insertar al DOM
+        presupuestoTotal .innerHTML = `${ cantidad }`;
+        restanteTotal .innerHTML = `${ cantidad }`;
+        
     }
 }
