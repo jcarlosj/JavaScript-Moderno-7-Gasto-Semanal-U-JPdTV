@@ -100,7 +100,21 @@ class Interfaz {
 
         restante .innerHTML = `${ presupuestoRestante }`;   // Actualiza los datos del elemento 'restante' en el DOM
 
-        console .log( 'Presupuesto restante: ', presupuestoRestante );
+        this .comprobarPresupuesto();
 
+    }
+    comprobarPresupuesto() {
+        const restante = document .querySelector( '.restante' ),
+              presupuestoTotal = presupuesto .cantidad, 
+              presupuestoRestante = presupuesto .restante;
+        
+        if( ( presupuestoTotal / 4 ) > presupuestoRestante ) { // Comprobar el 25% del gasto
+            restante .classList .remove( 'alert-sucesss', 'alert-warning' );
+            restante .classList .add( 'alert-danger' );
+        }      
+        else if( ( presupuestoTotal / 2 ) > presupuestoRestante ) { // Comprobar el 50% del gasto
+            restante .classList .remove( 'alert-sucesss' );
+            restante .classList .add( 'alert-warning' );
+        }
     }
 }
